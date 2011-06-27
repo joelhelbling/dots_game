@@ -9,7 +9,7 @@ class Line
     @drawn
   end
 
-  def draw
+  def draw(player_name)
     raise "Where exactly should I draw myself?  I got no squares!  I'm nowhere!" if @squares.size < 1
     @drawn = true
   end

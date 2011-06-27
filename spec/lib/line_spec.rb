@@ -19,11 +19,11 @@ describe Line do
     end
 
     it 'has a #draw method' do
-      lambda { @line.draw }.should_not raise_error
+      lambda { @line.draw }.should_not raise_error(NoMethodError)
     end
 
     specify 'after drawing the line, it should be drawn' do
-      @line.draw
+      @line.draw(:bob)
       @line.should be_drawn
     end
 

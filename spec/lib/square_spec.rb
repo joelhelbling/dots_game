@@ -39,6 +39,11 @@ describe Square do
         square.__send__("#{direction}_line").object_id.should == line.object_id
       end
     end
+
+    specify 'cannot add the same line for two different borders' do
+      just_one_line = Line.new
+      lambda { Square.new :north => just_one_line, :south => just_one_line }.should raise_error
+    end
   end
 
   describe 'owner' do
