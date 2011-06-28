@@ -32,6 +32,10 @@ class Square
     lines.select {|line| line.drawn?}.size
   end
 
+  def complete?
+    borders_drawn == 4
+  end
+
   private
 
   def lines_all_distinct?

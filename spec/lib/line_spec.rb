@@ -56,5 +56,16 @@ describe Line do
       lambda { @line.add_square square }.should raise_error
     end
 
+    it 'accepts a block which is called when the line is drawn' do
+      foo = :bar
+      line = Line.new do |line, player|
+        foo = :baz
+      end
+      line.add_square Square.new
+      foo.should == :bar
+      line.draw :bob
+      foo.should == :baz
+    end
+
   end
 end

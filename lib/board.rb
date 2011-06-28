@@ -40,9 +40,17 @@ class Board
   end
 
   def line_maker
-    line = Line.new
+    line = Line.new do |line, player|
+      handle_line_draw(line, player)
+    end
     @lines << line
     line
+  end
+
+  def handle_line_draw(line, player)
+    line.squares.each do |square|
+      square.owner = player if square.complete?
+    end
   end
 
   def available_lines
@@ -51,5 +59,9 @@ class Board
 
   def squares_for(name)
     @squares.select { |square| square.owner == name }
+  end
+
+  def unclaimed_squares
+    @squares.select { |square| square.owner.nil? }
   end
 end

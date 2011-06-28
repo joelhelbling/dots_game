@@ -1,7 +1,8 @@
 
 class Line
 
-  def initialize
+  def initialize(&block)
+    @block = block || lambda { |line, player| nil }
     @squares = []
   end
 
@@ -9,9 +10,10 @@ class Line
     @drawn
   end
 
-  def draw(player_name)
+  def draw(player)
     raise "Where exactly should I draw myself?  I got no squares!  I'm nowhere!" if @squares.size < 1
     @drawn = true
+    @block.call self, player
   end
 
   def squares

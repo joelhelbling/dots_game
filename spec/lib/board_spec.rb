@@ -47,6 +47,34 @@ describe Board do
       @board.should have(initial_line_count - 2).available_lines
     end
 
+    specify 'the board tracks the owners (winners) of squares' do
+      first_square = @board.squares.first
+      first_square.owner.should be_nil
+      first_square.lines.each { |l| l.draw :bob }
+      first_square.owner.should == :bob
+    end
+
+    specify 'the board has a count of unclaimed squares' do
+      @board.should have(9).unclaimed_squares
+      @board.squares[5].owner = :bill
+      @board.should have(8).unclaimed_squares
+    end
+
+    #      o       o       o       o
+    #
+    #
+    #
+    #      o-------o       o       o
+    #
+    #
+    #
+    #      o-------o       o       o
+    #      |       |
+    #      |  bob  |
+    #      |       |
+    #      o-------o       o       o
+    #
+
   end
 
 

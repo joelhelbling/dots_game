@@ -25,6 +25,22 @@ describe Square do
     it 'has a "west" line' do
       @square.west_line.should_not be_nil
     end
+
+    it 'reports how many of its borders have been drawn' do
+      @square.north_line.draw :bob
+      @square.borders_drawn.should == 1
+      @square.south_line.draw :bob
+      @square.west_line.draw :bob
+      @square.borders_drawn.should == 3
+    end
+
+    it 'reports when it is complete' do
+      @square.north_line.draw :bob
+      @square.east_line.draw :bob
+      @square.south_line.draw :bob
+      @square.west_line.draw :bob
+      @square.should be_complete
+    end
   end
 
   describe 'when constructed' do

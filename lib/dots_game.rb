@@ -1,24 +1,35 @@
+require File.dirname(__FILE__) + '/board'
 
 class DotsGame
   attr_reader :board
 
-  def initialize
-    @player = 0
+  def initialize(players=[:random, :random])
+    @board = Board.new
+    @players = [:bob, :jan] #players.map do |player_type|
+      #require "players/#{player_type}"
+      #eval "#{player_type.capitalize}.new"
+    #end
+    @next_player = @players.first
   end
 
   def over?
-    false
+    board.unclaimed_squares.size == 0
   end
 
-  def next_player
-    @player += 1
+  def pick_next_player
+    @next_player = (@players.first === @next_player) ? @players.last : @players_first
+  end
+
+  def run
+    until game.over? do
+      player = pick_next_player
+      next_line = player.pick_a_line from @board.available_lines
+      next_line.draw player
+    end
+    puts game.board
   end
 end
 
 if $0 == __FILE__
-  game = DotsGame.new
-  until game.over? do
-    game.next_player.move
-  end
-  puts game.board
+  DotsGame.new.run
 end

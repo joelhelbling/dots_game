@@ -11,14 +11,16 @@ describe DotsGame do
 
   it 'can tell if the game is over' do
     @game.should_not be_over
+    @game.board.squares.each { |s| s.owner = :bob }
+    @game.should be_over
   end
 
   it 'can return the next player' do
-    @game.next_player.should be_true
+    @game.pick_next_player.should be_true
   end
 
   specify 'often the next player will be different from the current player' do
-    player1 = @game.next_player
-    @game.next_player.should_not == player1
+    player1 = @game.pick_next_player
+    @game.pick_next_player.should_not == player1
   end
 end
