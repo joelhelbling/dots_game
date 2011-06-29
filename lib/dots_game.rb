@@ -1,4 +1,5 @@
-lib = File.expand_path(File.dirname(__FILE__))
+#! /usr/bin/env ruby
+
 require File.expand_path(File.dirname(__FILE__) + "/board")
 require File.expand_path(File.dirname(__FILE__) + "/players/random_player")
 require 'active_support/inflector'
@@ -6,8 +7,9 @@ require 'active_support/inflector'
 class DotsGame
   attr_reader :board
 
-  def initialize(players={'Jan' => :random_player, 'Bob' => :random_player})
-    @board = Board.new
+  def initialize(dimensions=[3,3], players={'Jan' => :random_player, 'Bob' => :random_player})
+    dimensions = (ARGV[0..1].size == 2) ? ARGV[0..1].map{|n| n.to_i} : [3, 3]
+    @board = Board.new(*dimensions)
     @players = []
     players.each_pair do |name, player_type|
       require File.expand_path("#{File.dirname(__FILE__)}/players/#{player_type}")
