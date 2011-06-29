@@ -1,6 +1,6 @@
 lib = File.expand_path(File.dirname(__FILE__))
-require "#{lib}/board"
-require "#{lib}/players/random_player"
+require File.expand_path(File.dirname(__FILE__) + "/board")
+require File.expand_path(File.dirname(__FILE__) + "/players/random_player")
 require 'active_support/inflector'
 
 class DotsGame
@@ -10,7 +10,7 @@ class DotsGame
     @board = Board.new
     @players = []
     players.each_pair do |name, player_type|
-      require "#{File.dirname(__FILE__)}/players/#{player_type}"
+      require File.expand_path("#{File.dirname(__FILE__)}/players/#{player_type}")
       @players << player_type.to_s.camelize.constantize.new(name)
     end
     @next_player = @players.first
