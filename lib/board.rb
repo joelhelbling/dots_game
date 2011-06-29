@@ -64,4 +64,22 @@ class Board
   def unclaimed_squares
     @squares.select { |square| square.owner.nil? }
   end
+
+  def render
+    @squares.map do |square|
+      n = (square.north_line.drawn?) ? '-------' : '       '
+      s = (square.south_line.drawn?) ? '-------' : '       '
+      e = (square.east_line.drawn?) ? '|' : ' '
+      w = (square.west_line.drawn?) ? '|' : ' '
+      owner = square.owner
+      o = (owner && owner.name.slice(0,5)) || '       '
+      <<-EOF
+ o#{ n  }o
+ #{w}       #{e}
+ #{w}  #{o}  #{e}
+ #{w}       #{e}
+ o#{ s  }o
+      EOF
+    end
+  end
 end

@@ -60,6 +60,10 @@ describe Board do
       @board.should have(8).unclaimed_squares
     end
 
+    it 'can render a display' do
+      lambda { @board.render }.should_not raise_error
+    end
+
     #      o       o       o       o
     #
     #
